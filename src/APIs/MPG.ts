@@ -1,6 +1,10 @@
 import {axios} from '../Config/AxiosConfig';
 
 export const fetchPlayers = async () => {
-  const response = await axios.get('/stats/championship/1/2020');
-  return response;
+  try {
+    const response = await axios.get<Player[]>('/stats/championship/1/2020');
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
 };
