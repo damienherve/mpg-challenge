@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {PlayersScreen, PlayerDetailsScreen} from '../UI/Screens';
+import {PlayersScreen, PlayerDetailsScreen} from '../ui/screens';
 
 export enum Screens {
   Players = 'Players',

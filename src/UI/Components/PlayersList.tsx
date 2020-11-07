@@ -1,24 +1,31 @@
 import React from 'react';
-import {FlatList, TouchableHighlight, View, Text} from 'react-native';
+import {ListItem} from 'react-native-elements';
+import {FlatList} from 'react-native-gesture-handler';
 
 interface PlayersListProps {
   players: Player[] | undefined;
+  onPlayerSelected?: (playerId: string) => void;
 }
 
 const PlayersList = (props: PlayersListProps) => {
   return (
-    <FlatList
+    <FlatList<Player>
       data={props.players}
-      renderItem={({item, separators}) => (
-        <TouchableHighlight
-          key={item.id}
-          onShowUnderlay={separators.highlight}
-          onHideUnderlay={separators.unhighlight}>
-          <View>
-            <Text>{item.lastname}</Text>
-          </View>
-        </TouchableHighlight>
-      )}
+      renderItem={({item}) => {
+        return (
+          <ListItem
+            key={item.id}
+            bottomDivider
+            onPress={() => {
+              props.onPlayerSelected?.(item.id);
+            }}>
+            <ListItem.Content>
+              <ListItem.Title>{item.lastname}</ListItem.Title>
+              <ListItem.Subtitle>{item.club}</ListItem.Subtitle>
+            </ListItem.Content>
+          </ListItem>
+        );
+      }}
     />
   );
 };

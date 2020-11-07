@@ -2,9 +2,9 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ReactQueryCacheProvider} from 'react-query';
-import queryCache from './Config/ReactQueryConfig';
+import queryCache from './configs/ReactQueryConfig';
 import {StatusBar} from 'react-native';
-import RootNavigator from './Navigation/Navigator';
+import RootNavigator from './navigation/RootNavigator';
 
 declare const global: {HermesInternal: null | {}};
 

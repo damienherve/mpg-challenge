@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, Text, ActivityIndicator, Button} from 'react-native';
+import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
 import {useQuery} from 'react-query';
-import {fetchPlayers} from '../../APIs/MPG';
-import PlayersList from '../Components/PlayersList';
+import {fetchPlayers} from '../../apis/MPG';
+import PlayersList from '../components/PlayersList';
 import {AxiosError} from 'axios';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList, Screens} from '../../Navigation/Navigator';
+import {RootStackParamList, Screens} from '../../navigation/RootNavigator';
 import {useNavigation} from '@react-navigation/native';
 
 type PlayersScreenNavigationProp = StackNavigationProp<
@@ -27,7 +27,20 @@ const PlayersScreen = () => {
     if (isError) {
       return <Text>Error: {error?.message}</Text>;
     }
-    return <PlayersList players={data} />;
+    return (
+      <PlayersList
+        players={data}
+        onPlayerSelected={(playerId) => {
+          navigation.navigate({
+            key: Screens.PlayerDetails,
+            name: Screens.PlayerDetails,
+            params: {
+              playerId,
+            },
+          });
+        }}
+      />
+    );
   };
 
   return <View style={styles.container}>{renderContent()}</View>;

@@ -1,5 +1,5 @@
 interface Player {
-  id: number;
+  id: string;
   club: string;
   firstname: string;
   lastname: string;
@@ -8,6 +8,20 @@ interface Player {
   teamId: number;
   ultrPosition: number;
   stats: Stats;
+}
+
+interface PlayerDetails extends Player {
+  active: number;
+  availableSeasons: [string];
+  birthDate: string;
+  calendar: string;
+  championship: number;
+  jerseyNum: string;
+  joinDate: string;
+  nbMatch: number;
+  twitter: string;
+  type: string;
+  updatedAt: string;
 }
 
 interface Stats {
