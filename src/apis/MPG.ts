@@ -1,20 +1,29 @@
 import {axios} from '../configs/AxiosConfig';
 
-export const fetchPlayers = async () => {
+export const fetchPlayers = async (
+  key: string,
+  championship: number,
+  season: string,
+) => {
   try {
-    const response = await axios.get<Player[]>('/stats/championship/1/2020');
+    const response = await axios.get<Player[]>(
+      '/stats/championship/' + championship + '/' + season,
+    );
     return response.data;
   } catch (err) {
     throw err;
   }
 };
 
-export const fetchPlayerDetails = async (key: string, playerId: string) => {
+export const fetchPlayerDetails = async (
+  key: string,
+  playerId: string,
+  season: string,
+) => {
   try {
     const pid = playerId.replace('player_', '');
-    console.log(playerId);
     const response = await axios.get<PlayerDetails>(
-      '/stats/player/' + pid + '?season=2018',
+      '/stats/player/' + pid + '?season=' + season,
     );
     return response.data;
   } catch (err) {

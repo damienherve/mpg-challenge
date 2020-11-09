@@ -6,7 +6,7 @@ interface Player {
   position: number;
   quotation: number;
   teamId: number;
-  ultrPosition: number;
+  ultraPosition: number;
   stats: Stats;
 }
 

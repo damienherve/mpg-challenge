@@ -1,33 +1,39 @@
 import React from 'react';
-import {ListItem} from 'react-native-elements';
 import {FlatList} from 'react-native-gesture-handler';
+import PlayerListItem from './PlayerListItem';
+import {View, StyleSheet} from 'react-native';
 
 interface PlayersListProps {
   players: Player[] | undefined;
   onPlayerSelected?: (playerId: string) => void;
 }
 
-const PlayersList = (props: PlayersListProps) => {
+export default (props: PlayersListProps) => {
+  const separator = () => {
+    return <View style={styles.separator} />;
+  };
   return (
     <FlatList<Player>
+      ItemSeparatorComponent={separator}
       data={props.players}
       renderItem={({item}) => {
         return (
-          <ListItem
-            key={item.id}
-            bottomDivider
+          <PlayerListItem
+            player={item}
             onPress={() => {
               props.onPlayerSelected?.(item.id);
-            }}>
-            <ListItem.Content>
-              <ListItem.Title>{item.lastname}</ListItem.Title>
-              <ListItem.Subtitle>{item.club}</ListItem.Subtitle>
-            </ListItem.Content>
-          </ListItem>
+            }}
+          />
         );
       }}
     />
   );
 };
 
-export default PlayersList;
+const styles = StyleSheet.create({
+  separator: {
+    height: 1,
+    marginHorizontal: 10,
+    backgroundColor: 'lightgray',
+  },
+});

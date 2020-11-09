@@ -8,7 +8,7 @@ export enum Screens {
 }
 export type RootStackParamList = {
   Players: {};
-  PlayerDetails: {playerId: string};
+  PlayerDetails: {playerId: string; season: string};
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();

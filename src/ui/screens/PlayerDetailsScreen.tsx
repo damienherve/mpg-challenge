@@ -15,7 +15,7 @@ const PlayerDetailsScreen = () => {
   const route = useRoute<PlayerDetailsScreenRouteProp>();
 
   const {isLoading, isError, data, error} = useQuery<PlayerDetails, AxiosError>(
-    ['player', route.params.playerId],
+    ['player', route.params.playerId, '2020'],
     fetchPlayerDetails,
   );
 
