@@ -35,13 +35,13 @@ const fetchPlayerDetails = async (
 
 /******** Queries *********/
 
-export const usePlayers = (championship: number, season: number) =>
+export const usePlayers = (championship: number, season: string) =>
   useQuery<Player[], AxiosError>(
     ['players', championship, season],
     fetchPlayers,
   );
 
-export const usePlayerDetails = (playerId: string, season: number) =>
+export const usePlayerDetails = (playerId: string, season: string) =>
   useQuery<PlayerDetails, AxiosError>(
     ['player', playerId, season],
     fetchPlayerDetails,

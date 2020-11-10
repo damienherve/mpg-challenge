@@ -4,24 +4,28 @@ import {TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 
 export interface SeasonModalProps {
-  onSeasonSelected?: (season: number) => void;
+  onSeasonSelected?: (season: string) => void;
+  availableSeasons?: string[];
   isVisible: boolean;
 }
 
 export default (props: SeasonModalProps) => {
-  const seasons = [2017, 2018, 2019, 2020];
+  const {availableSeasons, onSeasonSelected, isVisible} = props;
+  console.log(availableSeasons);
+  const seasons = availableSeasons?.sort() ?? ['2017', '2018', '2019', '2020'];
+  console.log(seasons);
   return (
-    <Modal isVisible={props.isVisible}>
+    <Modal isVisible={isVisible}>
       <View style={styles.modal}>
         {seasons.map((item) => {
           return (
             <TouchableOpacity
               key={item}
               onPress={() => {
-                props.onSeasonSelected?.(item);
+                onSeasonSelected?.(item);
               }}>
               <Text style={styles.text}>
-                {item}/{item + 1}
+                {item}/{parseInt(item, 10) + 1}
               </Text>
             </TouchableOpacity>
           );

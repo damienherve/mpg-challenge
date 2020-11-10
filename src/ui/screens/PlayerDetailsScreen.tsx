@@ -1,8 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {RootStackParamList, Screens} from '../../navigation/Routes';
 import {useRoute, RouteProp} from '@react-navigation/native';
-import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import {usePlayerDetails} from '../../apis/MPG';
+import PlayerDetailsHeader from '../components/PlayerDetailsHeader';
+import PlayerDetailsStats from '../components/PlayerDetailsStats';
+import {ScrollView} from 'react-native-gesture-handler';
+import PlayerDetailsStatsList from '../components/PlayerDetailsStatsList';
+import StatExtractor from '../../common/StatExtractor';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import SeasonModal from '../components/SeasonModal';
 
 type PlayerDetailsScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -12,27 +25,83 @@ type PlayerDetailsScreenRouteProp = RouteProp<
 const PlayerDetailsScreen = () => {
   const route = useRoute<PlayerDetailsScreenRouteProp>();
 
+  const [season, setSeason] = useState(route.params.season);
+  const [isSeasonModalVisible, setSeasonModalVisible] = useState(false);
+
   const {isLoading, isError, data, error} = usePlayerDetails(
     route.params.playerId,
-    route.params.season,
+    season,
   );
+
+  const toggleSeasonModal = () => {
+    setSeasonModalVisible(!isSeasonModalVisible);
+  };
 
   const renderContent = () => {
     if (isLoading) {
-      return <ActivityIndicator color="#FF0000" size="large" />;
+      return <ActivityIndicator color="#00F" size="large" />;
     }
     if (isError) {
       return <Text>Error: {error?.message}</Text>;
     }
-    return <Text>{data?.availableSeasons.join(' ')}</Text>;
+
+    if (data && data?.stats) {
+      const isGoalkeeper = data.ultraPosition === 10;
+      return (
+        <ScrollView style={styles.container}>
+          <SafeAreaView>
+            <PlayerDetailsHeader player={data} />
+            <PlayerDetailsStats player={data} isGoalkeeper={isGoalkeeper} />
+            <Icon.Button
+              style={styles.seasonButton}
+              name="calendar-o"
+              color="blue"
+              backgroundColor="#EEE"
+              onPress={toggleSeasonModal}>
+              <Text>
+                {season}/{parseInt(season, 10) + 1}
+              </Text>
+            </Icon.Button>
+            <PlayerDetailsStatsList
+              title="Efficace ?"
+              data={StatExtractor.getEfficiencyStats(data.stats, isGoalkeeper)}
+            />
+            {!isGoalkeeper && (
+              <View>
+                <PlayerDetailsStatsList
+                  title="Il plante ?"
+                  data={StatExtractor.getAttackStats(data.stats)}
+                />
+                <PlayerDetailsStatsList
+                  title="Solide ?"
+                  data={StatExtractor.getDefStats(data.stats)}
+                />
+                <PlayerDetailsStatsList
+                  title="Un as de la passe ?"
+                  data={StatExtractor.getPassStats(data.stats)}
+                />
+              </View>
+            )}
+            <SeasonModal
+              isVisible={isSeasonModalVisible}
+              availableSeasons={data.availableSeasons}
+              onSeasonSelected={(value) => {
+                setSeason(value);
+                toggleSeasonModal();
+              }}
+            />
+          </SafeAreaView>
+        </ScrollView>
+      );
+    }
   };
 
-  return <View style={styles.container}>{renderContent()}</View>;
+  return renderContent();
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: {flex: 1},
+  seasonButton: {
     justifyContent: 'center',
   },
 });

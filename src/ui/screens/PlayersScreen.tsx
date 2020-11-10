@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
 import PlayersList from '../components/PlayersList';
-import {Header, Input, Item} from 'native-base';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList, Screens} from '../../navigation/Routes';
 import {useNavigation} from '@react-navigation/native';
@@ -11,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash/fp';
 import PositionModal from '../components/PositionModal';
 import {Positions} from '../../common/Positions';
+import {SearchBar} from 'react-native-elements';
 
 type PlayersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,7 +19,7 @@ type PlayersScreenNavigationProp = StackNavigationProp<
 
 const PlayersScreen = () => {
   const [search, setSearch] = useState('');
-  const [season, setSeason] = useState(2020);
+  const [season, setSeason] = useState('2020');
   const [isSeasonModalVisible, setSeasonModalVisible] = useState(false);
   const [isPositionModalVisible, setPositionModalVisible] = useState(false);
   const [positions, setPositions] = useState<number[]>([]);
@@ -63,16 +63,12 @@ const PlayersScreen = () => {
     }
     return (
       <View style={styles.container}>
-        <Header searchBar rounded>
-          <Item>
-            <Icon name="search" size={20} style={styles.searchbar} />
-            <Input
-              placeholder="Nom du joueur"
-              onChangeText={(text) => setSearch(text)}
-              value={search}
-            />
-          </Item>
-        </Header>
+        <SearchBar
+          lightTheme
+          placeholder="Nom du joueur"
+          onChangeText={(text) => setSearch(text)}
+          value={search}
+        />
 
         <View style={styles.filtersContainer}>
           <View style={styles.container}>
@@ -81,9 +77,9 @@ const PlayersScreen = () => {
               color="blue"
               backgroundColor="#EEE"
               onPress={toggleSeasonModal}>
-              <Text style={styles.filteredText}>{`${season}/${
-                season + 1
-              }`}</Text>
+              <Text style={styles.filteredText}>
+                {season}/{parseInt(season, 10) + 1}
+              </Text>
             </Icon.Button>
           </View>
           <View style={styles.container}>

@@ -4,5 +4,5 @@ export enum Screens {
 }
 export type RootStackParamList = {
   Players: {};
-  PlayerDetails: {playerId: string; season: number};
+  PlayerDetails: {playerId: string; season: string};
 };
