@@ -1,10 +1,8 @@
 import React from 'react';
-import {RootStackParamList, Screens} from '../../navigation/RootNavigator';
+import {RootStackParamList, Screens} from '../../navigation/Routes';
 import {useRoute, RouteProp} from '@react-navigation/native';
-import {fetchPlayerDetails} from '../../apis/MPG';
-import {useQuery} from 'react-query';
-import {AxiosError} from 'axios';
 import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
+import {usePlayerDetails} from '../../apis/MPG';
 
 type PlayerDetailsScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -14,12 +12,10 @@ type PlayerDetailsScreenRouteProp = RouteProp<
 const PlayerDetailsScreen = () => {
   const route = useRoute<PlayerDetailsScreenRouteProp>();
 
-  const {isLoading, isError, data, error} = useQuery<PlayerDetails, AxiosError>(
-    ['player', route.params.playerId, '2020'],
-    fetchPlayerDetails,
+  const {isLoading, isError, data, error} = usePlayerDetails(
+    route.params.playerId,
+    route.params.season,
   );
-
-  console.log(data);
 
   const renderContent = () => {
     if (isLoading) {

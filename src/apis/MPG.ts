@@ -1,6 +1,8 @@
+import {AxiosError} from 'axios';
+import {useQuery} from 'react-query';
 import {axios} from '../configs/AxiosConfig';
 
-export const fetchPlayers = async (
+const fetchPlayers = async (
   key: string,
   championship: number,
   season: string,
@@ -15,7 +17,7 @@ export const fetchPlayers = async (
   }
 };
 
-export const fetchPlayerDetails = async (
+const fetchPlayerDetails = async (
   key: string,
   playerId: string,
   season: string,
@@ -30,3 +32,17 @@ export const fetchPlayerDetails = async (
     throw err;
   }
 };
+
+/******** Queries *********/
+
+export const usePlayers = (championship: number, season: number) =>
+  useQuery<Player[], AxiosError>(
+    ['players', championship, season],
+    fetchPlayers,
+  );
+
+export const usePlayerDetails = (playerId: string, season: number) =>
+  useQuery<PlayerDetails, AxiosError>(
+    ['player', playerId, season],
+    fetchPlayerDetails,
+  );

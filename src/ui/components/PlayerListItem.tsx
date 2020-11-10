@@ -1,23 +1,29 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacityProps} from 'react-native';
-import {positionName} from '../../common/Utils';
+import {View, Text, StyleSheet} from 'react-native';
+import {Positions} from '../../common/Positions';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import _ from 'lodash';
 
-interface PlayerListItemProps extends TouchableOpacityProps {
+interface PlayerListItemProps {
   player: Player;
+  onPress?: () => void;
 }
+
+export const ITEM_HEIGHT = 50;
 
 export default (props: PlayerListItemProps) => {
   const {player} = props;
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => props.onPress?.()}>
       <View style={styles.bigRow}>
         <Text style={styles.bold}>{player.lastname}</Text>
         <Text style={styles.small}>{player.club}</Text>
       </View>
       <View style={styles.smallRow}>
         <Text style={styles.small}>
-          {positionName(player.ultraPosition)[1]}
+          {Positions[player.ultraPosition].acronym}
         </Text>
       </View>
       <View style={styles.smallRow}>
@@ -31,7 +37,7 @@ export default (props: PlayerListItemProps) => {
       </View>
       <View style={styles.smallRow}>
         <Text style={[styles.bold, styles.small]}>
-          {player.stats.percentageStarter * 100} %
+          {_.round(player.stats.percentageStarter * 100)} %
         </Text>
       </View>
     </TouchableOpacity>
@@ -42,13 +48,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    height: 50,
+    height: ITEM_HEIGHT,
     flexDirection: 'row',
     paddingHorizontal: 20,
     paddingBottom: 5,
   },
   bigRow: {
-    flex: 8,
+    flex: 5,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },

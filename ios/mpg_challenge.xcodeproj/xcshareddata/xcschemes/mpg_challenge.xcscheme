@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "mpg_challenge.app"
+               BuildableName = "MPG Challenge.app"
                BlueprintName = "mpg_challenge"
                ReferencedContainer = "container:mpg_challenge.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "mpg_challenge.app"
+            BuildableName = "MPG Challenge.app"
             BlueprintName = "mpg_challenge"
             ReferencedContainer = "container:mpg_challenge.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "mpg_challenge.app"
+            BuildableName = "MPG Challenge.app"
             BlueprintName = "mpg_challenge"
             ReferencedContainer = "container:mpg_challenge.xcodeproj">
          </BuildableReference>
