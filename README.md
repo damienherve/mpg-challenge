@@ -78,7 +78,7 @@ Au delà des objectifs demandés, quelques options ont été ajoutées:
 
 Lors du développement de ce challenge, quelques défauts ont fait leur apparition, et non pas été traités par manque de temps, impossibilité technique ou éloignement trop important des objectifs.
 
-Voici les principaaux et quelques solutions pour y remédier: 
+Voici les principaux et quelques solutions pour y remédier: 
 
 - L'animation de fermeture des modals n'est pas correcte pour cause de setState -> rendering dans le callback
   - Solution 1: Ne pas passer par une modal pour la sélection (refonte UI)
