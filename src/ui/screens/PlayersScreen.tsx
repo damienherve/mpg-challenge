@@ -54,54 +54,52 @@ const PlayersScreen = () => {
     setPositionModalVisible(!isPositionModalVisible);
   };
 
-  const renderContent = () => {
-    if (isLoading) {
-      return <ActivityIndicator color="#000055" size="large" />;
-    }
-    if (isError) {
-      return <Text>Error: {error?.message}</Text>;
-    }
-    return (
-      <View style={styles.container}>
-        <SearchBar
-          lightTheme
-          placeholder="Nom du joueur"
-          onChangeText={(text) => setSearch(text)}
-          value={search}
-        />
+  return (
+    <View style={styles.container}>
+      <SearchBar
+        lightTheme
+        placeholder="Nom du joueur"
+        onChangeText={(text) => setSearch(text)}
+        value={search}
+      />
 
-        <View style={styles.filtersContainer}>
-          <View style={styles.container}>
-            <Icon.Button
-              name="calendar-o"
-              color="blue"
-              backgroundColor="#EEE"
-              onPress={toggleSeasonModal}>
-              <Text style={styles.filteredText}>
-                {season}/{parseInt(season, 10) + 1}
-              </Text>
-            </Icon.Button>
-          </View>
-          <View style={styles.container}>
-            <Icon.Button
-              name="map-marker"
-              color="blue"
-              backgroundColor="#EEE"
-              onPress={togglePositionModal}>
-              {positions.length > 0 ? (
-                <Text style={styles.filteredText}>
-                  {positions
-                    .map((item) => {
-                      return Positions[item].acronym;
-                    })
-                    .join(' / ')}
-                </Text>
-              ) : (
-                <Text style={styles.nonFilteredText}>Postes</Text>
-              )}
-            </Icon.Button>
-          </View>
+      <View style={styles.filtersContainer}>
+        <View style={styles.container}>
+          <Icon.Button
+            name="calendar-o"
+            color="blue"
+            backgroundColor="#EEE"
+            onPress={toggleSeasonModal}>
+            <Text style={styles.filteredText}>
+              {season}/{parseInt(season, 10) + 1}
+            </Text>
+          </Icon.Button>
         </View>
+        <View style={styles.container}>
+          <Icon.Button
+            name="map-marker"
+            color="blue"
+            backgroundColor="#EEE"
+            onPress={togglePositionModal}>
+            {positions.length > 0 ? (
+              <Text style={styles.filteredText}>
+                {positions
+                  .map((item) => {
+                    return Positions[item].acronym;
+                  })
+                  .join(' / ')}
+              </Text>
+            ) : (
+              <Text style={styles.nonFilteredText}>Postes</Text>
+            )}
+          </Icon.Button>
+        </View>
+      </View>
+      {isLoading ? (
+        <ActivityIndicator color="#000055" size="large" />
+      ) : isError ? (
+        <Text>Error: {error?.message}</Text>
+      ) : (
         <PlayersList
           players={filteredData}
           onPlayerSelected={(playerId) => {
@@ -115,25 +113,23 @@ const PlayersScreen = () => {
             });
           }}
         />
-        <SeasonModal
-          isVisible={isSeasonModalVisible}
-          onSeasonSelected={(value) => {
-            setSeason(value);
-            toggleSeasonModal();
-          }}
-        />
-        <PositionModal
-          isVisible={isPositionModalVisible}
-          onPositionsSelected={(value) => {
-            setPositions(value);
-            togglePositionModal();
-          }}
-        />
-      </View>
-    );
-  };
-
-  return <View style={styles.container}>{renderContent()}</View>;
+      )}
+      <SeasonModal
+        isVisible={isSeasonModalVisible}
+        onSeasonSelected={(value) => {
+          setSeason(value);
+          toggleSeasonModal();
+        }}
+      />
+      <PositionModal
+        isVisible={isPositionModalVisible}
+        onPositionsSelected={(value) => {
+          setPositions(value);
+          togglePositionModal();
+        }}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

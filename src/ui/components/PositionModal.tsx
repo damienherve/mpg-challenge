@@ -14,7 +14,6 @@ export interface PositionModalProps {
 export default (props: PositionModalProps) => {
   const [selected, setSelected] = useState<number[]>([]);
 
-  console.log(selected);
   const toggleSelected = (id: number) => {
     if (selected.includes(id)) {
       setSelected(_.without(selected, id));

@@ -1,6 +1,6 @@
 import {AxiosError} from 'axios';
 import {useQuery} from 'react-query';
-import {axios} from '../configs/AxiosConfig';
+import {axiosInstance} from '../configs/AxiosConfig';
 
 const fetchPlayers = async (
   key: string,
@@ -8,11 +8,12 @@ const fetchPlayers = async (
   season: string,
 ) => {
   try {
-    const response = await axios.get<Player[]>(
+    const response = await axiosInstance.get<Player[]>(
       '/stats/championship/' + championship + '/' + season,
     );
     return response.data;
   } catch (err) {
+    console.log(err);
     throw err;
   }
 };
@@ -24,7 +25,7 @@ const fetchPlayerDetails = async (
 ) => {
   try {
     const pid = playerId.replace('player_', '');
-    const response = await axios.get<PlayerDetails>(
+    const response = await axiosInstance.get<PlayerDetails>(
       '/stats/player/' + pid + '?season=' + season,
     );
     return response.data;

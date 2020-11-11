@@ -11,9 +11,7 @@ export interface SeasonModalProps {
 
 export default (props: SeasonModalProps) => {
   const {availableSeasons, onSeasonSelected, isVisible} = props;
-  console.log(availableSeasons);
   const seasons = availableSeasons?.sort() ?? ['2017', '2018', '2019', '2020'];
-  console.log(seasons);
   return (
     <Modal isVisible={isVisible}>
       <View style={styles.modal}>

@@ -35,7 +35,6 @@ export default (props: PlayerDetailsStatsProps) => {
     );
   };
 
-  console.log('GC: ' + isGoalkeeper);
   return (
     <View style={styles.headerContainer}>
       <View style={styles.column}>
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     backgroundColor: '#A00',
-    width: 15,
+    width: 18,
     margin: 5,
   },
   yellowCard: {
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     backgroundColor: '#FB0',
-    width: 15,
+    width: 18,
     margin: 5,
   },
 });
