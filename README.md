@@ -23,7 +23,7 @@ Challenge technique React-Native pour l'application MPG
 
 ## Inspiration
 
-Ce challenge technique s'insipre fortement de l'application MPG actuellement sur les stores (développée en Cordova) pour son design général.
+Ce challenge technique s'inspire fortement de l'application MPG actuellement sur les stores (développée en Cordova) pour son design général.
 
 L'objectif était de réaliser une sorte de portage (simplifié) des vues de l'application, en supprimant quelques fonctionnalités (certains filtres, statistiques...)
 
